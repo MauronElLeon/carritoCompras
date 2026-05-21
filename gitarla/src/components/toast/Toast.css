@@ -1,0 +1,66 @@
+/* Contenedor principal de la tarjeta */
+.toast-card {
+  display: flex;
+  pointer-events: auto;
+  width: 350px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  overflow: hidden;
+  font-family: sans-serif;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* La barrita lateral de color */
+.toast-bar {
+  width: 8px;
+}
+
+/* Colores según el tipo */
+.toast-success .toast-bar { background-color: #22c55e; }
+.toast-error .toast-bar { background-color: #ef4444; }
+.toast-info .toast-bar { background-color: #3b82f6; }
+.toast-warning .toast-bar { background-color: #eab308; }
+
+.toast-content {
+  display: flex;
+  padding: 15px;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.toast-icon {
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+.toast-success .toast-icon { color: #22c55e; }
+.toast-error .toast-icon { color: #ef4444; }
+.toast-info .toast-icon { color: #3b82f6; }
+.toast-warning .toast-icon { color: #eab308; }
+
+.toast-text h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.toast-text p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.toast-close {
+  margin-left: auto;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #aaa;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
