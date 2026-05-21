@@ -7,7 +7,7 @@ function App() {
 
   const initialCart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const [guitars, setGuitars] = useState(guitarsData.guitars);
+  const [guitars] = useState(guitarsData.guitars);
   const [cart, setCart] = useState(initialCart);
 
   const MAX_QUANTITY = 5;
@@ -22,47 +22,52 @@ function App() {
     const itemExists = cart.findIndex((cartItem) => cartItem.id === item.id);
 
     if (itemExists !== -1) {
-      if (cart[itemExists].quantity >= MAX_QUANTITY) return;
+      if (cart[itemExists].quantity >= MAX_QUANTITY) {
+        alert(`No puedes agregar más de ${MAX_QUANTITY} unidades de este producto.`);
+        return;
+      }
       const updateCart = [...cart];
       updateCart[itemExists].quantity++;
       setCart(updateCart);
-      console.log(`La guitarra ${item.name} ya está en el carrito`);
       return;
     } else {
       item.quantity = 1;
       setCart([...cart, item]);
-      console.log(`Guitarra ${item.name} agregada al carrito`);
     }
   }
 
   function removeFromCart(itemId) {
     setCart(cart.filter((item) => item.id !== itemId));
-    console.log(`Guitarra con id ${itemId} eliminada del carrito`);
   }
 
   function increaseQuantity(itemId) {
     const itemIndex = cart.findIndex((item) => item.id === itemId);
-    if (itemIndex !== -1 && cart[itemIndex].quantity < MAX_QUANTITY) {
+    if (itemIndex !== -1) {
+      if (cart[itemIndex].quantity >= MAX_QUANTITY) {
+        alert(`No puedes agregar más de ${MAX_QUANTITY} unidades de este producto.`);
+        return;
+      }
       const updatedCart = [...cart];
       updatedCart[itemIndex].quantity++;
       setCart(updatedCart);
-      console.log(`Cantidad de guitarra con id ${itemId} aumentada`);
     }
   }
 
   function decreaseQuantity(itemId) {
     const itemIndex = cart.findIndex((item) => item.id === itemId);
-    if (itemIndex !== -1 && cart[itemIndex].quantity > MIN_QUANTITY) {
+    if (itemIndex !== -1) {
+      if (cart[itemIndex].quantity <= MIN_QUANTITY) {
+        alert(`No puedes tener menos de ${MIN_QUANTITY} unidades de este producto.`);
+        return;
+      }
       const updatedCart = [...cart];
       updatedCart[itemIndex].quantity--;
       setCart(updatedCart);
-      console.log(`Cantidad de guitarra con id ${itemId} disminuida`);
     }
   }
 
   function clearCart() {
     setCart([]);
-    console.log("Carrito vaciado");
   }
 
   return (
